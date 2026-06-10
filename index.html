@@ -102,17 +102,6 @@
     <h1>Nueva solicitud de soporte</h1>
     <p class="subtitle">Completa los campos para registrar tu solicitud. El equipo de TI te responderá a la brevedad.</p>
  
-    <!-- ⚠️ Este banner desaparece automáticamente cuando configuras tu clave -->
-    <div class="setup-banner" id="setup-banner">
-      <i class="ti ti-key"></i>
-      <div>
-        <strong>Paso único de configuración:</strong> Para activar el envío de correos, ve a
-        <a href="https://web3forms.com" target="_blank">web3forms.com</a>, ingresa
-        <strong>venta.cadenalb3@gmail.com</strong> y pega tu Access Key en la variable
-        <code>ACCESS_KEY</code> al inicio del script (línea 1 del &lt;script&gt;).
-      </div>
-    </div>
- 
     <div class="card">
       <div class="section-label">Tus datos</div>
       <div class="row row-2">
@@ -255,11 +244,11 @@
 // 1. Ve a https://web3forms.com
 // 2. Ingresa venta.cadenalb3@gmail.com → haz clic en "Get your Access Key"
 // 3. Copia la clave que llegó a tu correo y pégala aquí:
-const ACCESS_KEY = 'TU_ACCESS_KEY_AQUI';
+const ACCESS_KEY = '8df26591-ab0c-41ba-aa62-5ab7e3f48f13';
 // ─────────────────────────────────────────────────────────────────────────────
  
 document.getElementById('yr').textContent = new Date().getFullYear();
-if (ACCESS_KEY !== 'TU_ACCESS_KEY_AQUI') {
+if (ACCESS_KEY !== '8df26591-ab0c-41ba-aa62-5ab7e3f48f13') {
   document.getElementById('setup-banner').style.display = 'none';
 }
  
