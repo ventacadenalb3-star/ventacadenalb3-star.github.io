@@ -14,24 +14,24 @@
       --radius: 10px; --radius-sm: 6px;
     }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-
+ 
     header { background: var(--purple); padding: 0 1.5rem; display: flex; align-items: center; height: 60px; gap: 12px; }
     header .logo-icon { width:36px; height:36px; background:rgba(255,255,255,.15); border-radius:8px; display:flex; align-items:center; justify-content:center; }
     header .logo-icon i { font-size:20px; color:#fff; }
     header .logo-text { font-size:16px; font-weight:600; color:#fff; }
     header .logo-sub  { font-size:12px; color:rgba(255,255,255,.65); }
-
+ 
     main { max-width:680px; margin:2rem auto; padding:0 1rem 3rem; }
     h1 { font-size:22px; font-weight:600; margin-bottom:.3rem; }
     .subtitle { font-size:14px; color:var(--text-muted); margin-bottom:1.5rem; }
-
+ 
     .card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:1.25rem; margin-bottom:1rem; }
     .section-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.07em; color:var(--text-hint); margin-bottom:.85rem; }
-
+ 
     .row   { display:grid; gap:12px; margin-bottom:12px; }
     .row-2 { grid-template-columns:1fr 1fr; }
     @media(max-width:520px){ .row-2{ grid-template-columns:1fr; } }
-
+ 
     .field label { display:block; font-size:13px; color:var(--text-muted); margin-bottom:4px; }
     .field label span { color:#e24b4a; }
     .field input, .field select, .field textarea { width:100%; font-size:14px; border:1px solid var(--border); border-radius:var(--radius-sm); padding:9px 11px; background:#fff; color:var(--text); font-family:inherit; transition:border-color .15s, box-shadow .15s; }
@@ -43,24 +43,24 @@
     .field.invalid .err { display:block; }
     .hint { font-size:11px; color:var(--text-hint); margin-top:3px; }
     .char-count { font-size:11px; color:var(--text-hint); text-align:right; margin-top:2px; }
-
+ 
     .prio-group { display:flex; gap:8px; }
     .prio-btn { flex:1; padding:8px 4px; border:1px solid var(--border); border-radius:var(--radius-sm); background:#fff; cursor:pointer; font-size:13px; font-family:inherit; color:var(--text-muted); text-align:center; transition:all .15s; }
     .prio-btn:hover { background:var(--bg); }
     .prio-btn.active-alta  { background:#FCEBEB; border-color:#E24B4A; color:#A32D2D; font-weight:600; }
     .prio-btn.active-media { background:#FAEEDA; border-color:#BA7517; color:#633806; font-weight:600; }
     .prio-btn.active-baja  { background:#EAF3DE; border-color:#3B6D11; color:#27500A; font-weight:600; }
-
+ 
     .submit-btn { width:100%; padding:12px; background:var(--purple); color:#fff; border:none; border-radius:var(--radius-sm); font-size:15px; font-weight:600; cursor:pointer; font-family:inherit; display:flex; align-items:center; justify-content:center; gap:8px; transition:background .15s; }
     .submit-btn:hover { background:var(--purple-dark); }
     .submit-btn:active { transform:scale(.99); }
     .submit-btn:disabled { opacity:.5; cursor:not-allowed; }
-
+ 
     .sending-card { display:none; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:2.5rem 1.25rem; text-align:center; margin-bottom:1rem; }
     .spinner { width:36px; height:36px; border:3px solid var(--border); border-top-color:var(--purple); border-radius:50%; animation:spin .7s linear infinite; margin:0 auto 1rem; }
     @keyframes spin { to { transform:rotate(360deg); } }
     .sending-card p { font-size:14px; color:var(--text-muted); }
-
+ 
     .success-card { display:none; background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:2.5rem 1.25rem; text-align:center; margin-bottom:1rem; }
     .success-icon { width:60px; height:60px; border-radius:50%; background:#EAF3DE; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; }
     .success-icon i { font-size:30px; color:#3B6D11; }
@@ -70,19 +70,24 @@
     .resumen { text-align:left; font-size:13px; background:var(--bg); border-radius:var(--radius-sm); padding:12px 16px; margin-bottom:1.25rem; line-height:1.9; color:var(--text-muted); }
     .new-btn { padding:9px 22px; border:1px solid var(--border); border-radius:var(--radius-sm); background:transparent; font-size:14px; cursor:pointer; font-family:inherit; color:var(--text); transition:background .15s; }
     .new-btn:hover { background:var(--bg); }
-
+ 
     .send-err { display:none; background:#FCEBEB; border:1px solid #F09595; border-radius:var(--radius-sm); padding:10px 14px; font-size:13px; color:#A32D2D; margin-bottom:12px; }
-
+ 
+    /* hCaptcha */
+    .captcha-wrap { margin-bottom:12px; }
+    .captcha-err  { display:none; font-size:12px; color:#a32d2d; margin-top:5px; }
+    .captcha-wrap.invalid .captcha-err { display:block; }
+ 
     /* Banner de configuración */
     .setup-banner { background:#FFF8E1; border:1px solid #FFD54F; border-radius:var(--radius-sm); padding:12px 16px; font-size:13px; color:#5D4037; margin-bottom:1.25rem; display:flex; gap:10px; align-items:flex-start; }
     .setup-banner i { font-size:18px; color:#F9A825; flex-shrink:0; margin-top:1px; }
     .setup-banner a { color:#714B67; font-weight:600; }
-
+ 
     footer { text-align:center; font-size:12px; color:var(--text-hint); padding:2rem 1rem 1rem; }
   </style>
 </head>
 <body>
-
+ 
 <header>
   <div class="logo-icon"><i class="ti ti-settings-2"></i></div>
   <div>
@@ -90,13 +95,24 @@
     <div class="logo-sub">Sistema de tickets de soporte</div>
   </div>
 </header>
-
+ 
 <main>
-
+ 
   <div id="form-view">
     <h1>Nueva solicitud de soporte</h1>
     <p class="subtitle">Completa los campos para registrar tu solicitud. El equipo de TI te responderá a la brevedad.</p>
-
+ 
+    <!-- ⚠️ Este banner desaparece automáticamente cuando configuras tu clave -->
+    <div class="setup-banner" id="setup-banner">
+      <i class="ti ti-key"></i>
+      <div>
+        <strong>Paso único de configuración:</strong> Para activar el envío de correos, ve a
+        <a href="https://web3forms.com" target="_blank">web3forms.com</a>, ingresa
+        <strong>venta.cadenalb3@gmail.com</strong> y pega tu Access Key en la variable
+        <code>ACCESS_KEY</code> al inicio del script (línea 1 del &lt;script&gt;).
+      </div>
+    </div>
+ 
     <div class="card">
       <div class="section-label">Tus datos</div>
       <div class="row row-2">
@@ -130,7 +146,7 @@
         </div>
       </div>
     </div>
-
+ 
     <div class="card">
       <div class="section-label">Detalle de la solicitud</div>
       <div class="row row-2">
@@ -168,7 +184,7 @@
           <div class="err">Selecciona un tipo</div>
         </div>
       </div>
-
+ 
       <div class="field row" id="f-prioridad" style="margin-bottom:12px">
         <label>Prioridad <span>*</span></label>
         <div class="prio-group">
@@ -179,7 +195,7 @@
         <div class="hint">Alta = impacto en operación crítica &nbsp;·&nbsp; Media = afecta proceso &nbsp;·&nbsp; Baja = mejora</div>
         <div class="err" id="prio-err">Selecciona una prioridad</div>
       </div>
-
+ 
       <div class="field" id="f-desc">
         <label>Descripción del problema <span>*</span></label>
         <textarea id="desc" maxlength="500" placeholder="Describe qué sucede, en qué pantalla ocurre y los pasos para reproducirlo..." oninput="updateChar()"></textarea>
@@ -188,28 +204,35 @@
           <div class="char-count" id="char-count">0 / 500</div>
         </div>
       </div>
-
+ 
       <div class="field">
         <label>¿Tienes captura de pantalla o número de error?</label>
         <input type="text" id="evidencia" placeholder="Ej. Error ORM: 'write' on 'account.move', captura en carpeta Soporte...">
         <div class="hint">Opcional — nos ayuda a resolver más rápido</div>
       </div>
     </div>
-
+ 
     <div class="send-err" id="send-err">
       <i class="ti ti-alert-triangle"></i> No se pudo enviar. Verifica que tu Access Key de Web3Forms sea correcta e intenta de nuevo.
     </div>
+ 
+    <!-- hCaptcha -->
+    <div class="captcha-wrap" id="captcha-wrap">
+      <div class="h-captcha" data-captcha="true"></div>
+      <div class="captcha-err" id="captcha-err">Por favor completa el captcha antes de enviar.</div>
+    </div>
+ 
     <button class="submit-btn" onclick="enviar()">
       <i class="ti ti-send"></i> Enviar solicitud
     </button>
   </div>
-
+ 
   <!-- Enviando -->
   <div class="sending-card" id="sending-view">
     <div class="spinner"></div>
     <p>Registrando solicitud y enviando notificación por correo…</p>
   </div>
-
+ 
   <!-- Éxito -->
   <div class="success-card" id="success-view">
     <div class="success-icon"><i class="ti ti-check"></i></div>
@@ -220,28 +243,28 @@
     <div class="resumen" id="resumen"></div>
     <button class="new-btn" onclick="resetForm()"><i class="ti ti-plus"></i> Nueva solicitud</button>
   </div>
-
+ 
 </main>
-
+ 
 <footer>
   Mesa de Ayuda Odoo &nbsp;·&nbsp; &copy; <span id="yr"></span> &nbsp;·&nbsp; Área de TI
 </footer>
-
+ 
 <script>
 // ─── CONFIGURACIÓN ───────────────────────────────────────────────────────────
 // 1. Ve a https://web3forms.com
 // 2. Ingresa venta.cadenalb3@gmail.com → haz clic en "Get your Access Key"
 // 3. Copia la clave que llegó a tu correo y pégala aquí:
-const ACCESS_KEY = '8df26591-ab0c-41ba-aa62-5ab7e3f48f13';
+const ACCESS_KEY = 'TU_ACCESS_KEY_AQUI';
 // ─────────────────────────────────────────────────────────────────────────────
-
+ 
 document.getElementById('yr').textContent = new Date().getFullYear();
-if (ACCESS_KEY !== '8df26591-ab0c-41ba-aa62-5ab7e3f48f13') {
+if (ACCESS_KEY !== 'TU_ACCESS_KEY_AQUI') {
   document.getElementById('setup-banner').style.display = 'none';
 }
-
+ 
 let prio = '';
-
+ 
 function setPrio(btn) {
   document.querySelectorAll('.prio-btn').forEach(b => b.className = 'prio-btn');
   prio = btn.dataset.p;
@@ -249,12 +272,12 @@ function setPrio(btn) {
   document.getElementById('f-prioridad').classList.remove('invalid');
   document.getElementById('prio-err').style.display = 'none';
 }
-
+ 
 function updateChar() {
   document.getElementById('char-count').textContent =
     document.getElementById('desc').value.length + ' / 500';
 }
-
+ 
 function validate() {
   let ok = true;
   const checks = [
@@ -275,19 +298,28 @@ function validate() {
     document.getElementById('prio-err').style.display = 'block';
     ok = false;
   }
+  // Validar hCaptcha
+  const hCaptchaResponse = document.querySelector('textarea[name=h-captcha-response]');
+  const captchaWrap = document.getElementById('captcha-wrap');
+  if (!hCaptchaResponse || !hCaptchaResponse.value) {
+    captchaWrap.classList.add('invalid');
+    ok = false;
+  } else {
+    captchaWrap.classList.remove('invalid');
+  }
   return ok;
 }
-
+ 
 function genTicket() {
   return 'OD-' + new Date().getFullYear() + '-' + String(Math.floor(Math.random() * 900) + 100);
 }
-
+ 
 async function enviar() {
   if (!validate()) return;
   document.getElementById('send-err').style.display = 'none';
   document.getElementById('form-view').style.display = 'none';
   document.getElementById('sending-view').style.display = 'block';
-
+ 
   const ticket    = genTicket();
   const nombre    = document.getElementById('nombre').value;
   const area      = document.getElementById('area').value;
@@ -298,24 +330,24 @@ async function enviar() {
   const evidencia = document.getElementById('evidencia').value;
   const fecha     = new Date().toLocaleDateString('es-MX', { day:'2-digit', month:'2-digit', year:'numeric' });
   const prioEmoji = { Alta:'🔴', Media:'🟡', Baja:'🟢' };
-
+ 
   const mensaje =
 `Ticket: ${ticket}
 Fecha: ${fecha}
-
+ 
 SOLICITANTE
 Nombre: ${nombre}
 Área: ${area}
 Correo: ${correo}
-
+ 
 DETALLE
 Módulo: ${modulo}
 Tipo: ${tipo}
 Prioridad: ${prioEmoji[prio]} ${prio}
-
+ 
 DESCRIPCIÓN
 ${desc}${evidencia ? '\n\nEVIDENCIA\n' + evidencia : ''}`;
-
+ 
   try {
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
@@ -326,12 +358,13 @@ ${desc}${evidencia ? '\n\nEVIDENCIA\n' + evidencia : ''}`;
         from_name: nombre,
         replyto: correo,
         message: mensaje,
+        'h-captcha-response': (document.querySelector('textarea[name=h-captcha-response]') || {}).value || '',
       })
     });
-
+ 
     const data = await res.json();
     if (!data.success) throw new Error(data.message);
-
+ 
     document.getElementById('ticket-id').textContent = 'Ticket: ' + ticket;
     document.getElementById('resumen').innerHTML =
       '<b>Solicitante:</b> ' + nombre + '<br>' +
@@ -342,14 +375,14 @@ ${desc}${evidencia ? '\n\nEVIDENCIA\n' + evidencia : ''}`;
       '<b>Fecha:</b> '       + fecha;
     document.getElementById('sending-view').style.display = 'none';
     document.getElementById('success-view').style.display = 'block';
-
+ 
   } catch (e) {
     document.getElementById('sending-view').style.display = 'none';
     document.getElementById('form-view').style.display    = 'block';
     document.getElementById('send-err').style.display     = 'block';
   }
 }
-
+ 
 function resetForm() {
   ['nombre','correo','desc','evidencia'].forEach(id => document.getElementById(id).value = '');
   ['area','modulo','tipo'].forEach(id => document.getElementById(id).value = '');
@@ -364,5 +397,8 @@ function resetForm() {
   document.getElementById('form-view').style.display    = 'block';
 }
 </script>
+<!-- Web3Forms script — carga hCaptcha automáticamente -->
+<script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
+ 
