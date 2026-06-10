@@ -73,15 +73,19 @@
  
     .send-err { display:none; background:#FCEBEB; border:1px solid #F09595; border-radius:var(--radius-sm); padding:10px 14px; font-size:13px; color:#A32D2D; margin-bottom:12px; }
  
+    /* File upload drop zone */
+    .file-drop { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; border:2px dashed var(--border); border-radius:var(--radius-sm); padding:20px 16px; cursor:pointer; background:#fafafa; transition:border-color .15s, background .15s; text-align:center; }
+    .file-drop:hover, .file-drop.drag-over { border-color:var(--purple); background:rgba(113,75,103,.04); }
+    .file-drop i { font-size:28px; color:var(--text-hint); }
+    .file-drop span { font-size:13px; color:var(--text-muted); }
+    .file-drop .file-hint { font-size:11px; color:var(--text-hint); }
+    .file-drop.has-file { border-style:solid; border-color:var(--purple); background:rgba(113,75,103,.04); }
+    .file-drop.has-file i { color:var(--purple); }
+ 
     /* hCaptcha */
     .captcha-wrap { margin-bottom:12px; }
     .captcha-err  { display:none; font-size:12px; color:#a32d2d; margin-top:5px; }
     .captcha-wrap.invalid .captcha-err { display:block; }
- 
-    /* Banner de configuración */
-    .setup-banner { background:#FFF8E1; border:1px solid #FFD54F; border-radius:var(--radius-sm); padding:12px 16px; font-size:13px; color:#5D4037; margin-bottom:1.25rem; display:flex; gap:10px; align-items:flex-start; }
-    .setup-banner i { font-size:18px; color:#F9A825; flex-shrink:0; margin-top:1px; }
-    .setup-banner a { color:#714B67; font-weight:600; }
  
     footer { text-align:center; font-size:12px; color:var(--text-hint); padding:2rem 1rem 1rem; }
   </style>
@@ -195,9 +199,17 @@
       </div>
  
       <div class="field">
-        <label>¿Tienes captura de pantalla o número de error?</label>
-        <input type="text" id="evidencia" placeholder="Ej. Error ORM: 'write' on 'account.move', captura en carpeta Soporte...">
-        <div class="hint">Opcional — nos ayuda a resolver más rápido</div>
+        <label>Captura de pantalla o evidencia</label>
+        <label class="file-drop" id="file-drop" for="evidencia">
+          <i class="ti ti-photo-up"></i>
+          <span id="file-label">Haz clic o arrastra una imagen aquí</span>
+          <span class="file-hint">PNG, JPG, GIF o PDF · máx. 5 MB · opcional</span>
+        </label>
+        <input type="file" id="evidencia" name="attachment" accept="image/*,application/pdf" style="display:none">
+        <div id="file-preview-wrap" style="display:none;margin-top:8px">
+          <img id="file-preview" src="" alt="Vista previa" style="max-width:100%;max-height:180px;border-radius:6px;border:1px solid var(--border)">
+        </div>
+        <div class="err" id="file-err" style="display:none"></div>
       </div>
     </div>
  
@@ -226,7 +238,7 @@
   <div class="success-card" id="success-view">
     <div class="success-icon"><i class="ti ti-check"></i></div>
     <h2>¡Solicitud enviada!</h2>
-    <p class="desc">Tu ticket fue registrado y se envió una notificación a <strong>venta.cadenalb3@gmail.com</strong>.</p>
+    <p class="desc">Tu ticket fue registrado y se envió una notificación al equipo de TI.</p>
     <div class="ticket-badge" id="ticket-id"></div>
     <p style="font-size:13px;color:var(--text-muted);margin-bottom:.75rem">Resumen de tu solicitud:</p>
     <div class="resumen" id="resumen"></div>
@@ -242,12 +254,64 @@
 <script>
 // ─── CONFIGURACIÓN ───────────────────────────────────────────────────────────
 // 1. Ve a https://web3forms.com
-// 2. Ingresa venta.cadenalb3@gmail.com → haz clic en "Get your Access Key"
+// 2. Ingresa el correo con el que registraste tu cuenta → haz clic en "Get your Access Key"
 // 3. Copia la clave que llegó a tu correo y pégala aquí:
 const ACCESS_KEY = '8df26591-ab0c-41ba-aa62-5ab7e3f48f13';
 // ─────────────────────────────────────────────────────────────────────────────
  
 document.getElementById('yr').textContent = new Date().getFullYear();
+ 
+// ── Archivo / evidencia ───────────────────────────────────────────────────────
+(function () {
+  const input   = document.getElementById('evidencia');
+  const drop    = document.getElementById('file-drop');
+  const label   = document.getElementById('file-label');
+  const preview = document.getElementById('file-preview');
+  const previewWrap = document.getElementById('file-preview-wrap');
+  const errEl   = document.getElementById('file-err');
+  const MAX_MB  = 5;
+ 
+  function handleFile(file) {
+    errEl.style.display = 'none';
+    if (!file) return;
+    if (file.size > MAX_MB * 1024 * 1024) {
+      errEl.textContent = 'El archivo excede ' + MAX_MB + ' MB. Elige uno más pequeño.';
+      errEl.style.display = 'block';
+      input.value = '';
+      drop.classList.remove('has-file');
+      label.textContent = 'Haz clic o arrastra una imagen aquí';
+      previewWrap.style.display = 'none';
+      return;
+    }
+    label.textContent = file.name;
+    drop.classList.add('has-file');
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = e => { preview.src = e.target.result; previewWrap.style.display = 'block'; };
+      reader.readAsDataURL(file);
+    } else {
+      previewWrap.style.display = 'none';
+    }
+  }
+ 
+  input.addEventListener('change', () => handleFile(input.files[0]));
+ 
+  drop.addEventListener('click', () => input.click());
+  drop.addEventListener('dragover',  e => { e.preventDefault(); drop.classList.add('drag-over'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('drag-over'));
+  drop.addEventListener('drop', e => {
+    e.preventDefault();
+    drop.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      // Crear un DataTransfer para asignarlo al input
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+      handleFile(file);
+    }
+  });
+})();
 if (ACCESS_KEY !== '8df26591-ab0c-41ba-aa62-5ab7e3f48f13') {
   document.getElementById('setup-banner').style.display = 'none';
 }
@@ -338,17 +402,31 @@ DESCRIPCIÓN
 ${desc}${evidencia ? '\n\nEVIDENCIA\n' + evidencia : ''}`;
  
   try {
+    // FormData es necesario para poder adjuntar archivos
+    const formData = new FormData();
+    formData.append('access_key', ACCESS_KEY);
+    formData.append('subject', `[${prio.toUpperCase()}] Nueva solicitud Odoo – ${ticket} – ${modulo}`);
+    formData.append('from_name', nombre);
+    formData.append('replyto', correo);
+    formData.append('message', mensaje);
+ 
+    // Adjuntar archivo si fue seleccionado
+    const fileInput = document.getElementById('evidencia');
+    if (fileInput.files && fileInput.files[0]) {
+      formData.append('attachment', fileInput.files[0]);
+    }
+ 
+    // Token hCaptcha
+    const hCaptchaEl = document.querySelector('textarea[name=h-captcha-response]');
+    if (hCaptchaEl && hCaptchaEl.value) {
+      formData.append('h-captcha-response', hCaptchaEl.value);
+    }
+ 
+    // No agregar Content-Type manualmente: el navegador lo setea automáticamente con el boundary
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        access_key: ACCESS_KEY,
-        subject: `[${prio.toUpperCase()}] Nueva solicitud Odoo – ${ticket} – ${modulo}`,
-        from_name: nombre,
-        replyto: correo,
-        message: mensaje,
-        'h-captcha-response': (document.querySelector('textarea[name=h-captcha-response]') || {}).value || '',
-      })
+      headers: { 'Accept': 'application/json' },
+      body: formData,
     });
  
     const data = await res.json();
@@ -373,7 +451,15 @@ ${desc}${evidencia ? '\n\nEVIDENCIA\n' + evidencia : ''}`;
 }
  
 function resetForm() {
-  ['nombre','correo','desc','evidencia'].forEach(id => document.getElementById(id).value = '');
+  ['nombre','correo','desc'].forEach(id => document.getElementById(id).value = '');
+  // Limpiar campo de archivo y preview
+  const fi = document.getElementById('evidencia');
+  fi.value = '';
+  document.getElementById('file-preview-wrap').style.display = 'none';
+  document.getElementById('file-preview').src = '';
+  document.getElementById('file-label').textContent = 'Haz clic o arrastra una imagen aquí';
+  const drop = document.getElementById('file-drop');
+  drop.classList.remove('has-file');
   ['area','modulo','tipo'].forEach(id => document.getElementById(id).value = '');
   document.querySelectorAll('.prio-btn').forEach(b => b.className = 'prio-btn');
   prio = '';
@@ -390,4 +476,3 @@ function resetForm() {
 <script src="https://web3forms.com/client/script.js" async defer></script>
 </body>
 </html>
- 
